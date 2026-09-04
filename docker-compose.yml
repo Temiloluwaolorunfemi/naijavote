@@ -23,7 +23,7 @@ services:
 
   # Spring Boot Application
   naijavote-app:
-    image: kniru/naijavote-main:latest
+    image: temiloluwaolorunfemi/naijavote:latest
     container_name: naijavote-app
     env_file:
       - .env
