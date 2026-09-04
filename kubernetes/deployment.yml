@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: naijavote
-          image: temiloluwaolorunfemi/naijavote:latest
+          image: temiloluwaolorunfemi/naijavote:33843838204
           imagePullPolicy: Always
           ports:
             - name: http
