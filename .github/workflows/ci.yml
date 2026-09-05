@@ -93,12 +93,12 @@ jobs:
           uses: actions/checkout@v4
 
         - name: Verify local kind cluster access
-          shell: pwsh
+          shell: bash
           run: |
             kubectl config current-context
             kubectl cluster-info
             kubectl get namespace argocd
 
         - name: Apply Argo CD application
-          shell: pwsh
+          shell: bash
           run: kubectl apply -f argocd/application.yml -n argocd
