@@ -71,15 +71,19 @@ jobs:
         - name: Update Kubernetes manifest with new image tag
           run: |
             IMAGE_TAG=${{ github.run_id }}
-            sed -i "s|image: temiloluwaolorunfemi/naijavote:latest|image: temiloluwaolorunfemi/naijavote:${IMAGE_TAG}|g" kubernetes/naijavote-deployment.yml
+            sed -i -E "s|(image: temiloluwaolorunfemi/naijavote:)[^[:space:]]+|\1${IMAGE_TAG}|g" kubernetes/naijavote-deployment.yml
 
         - name: Commit and push updated manifest
           run: |
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git add kubernetes/naijavote-deployment.yml
-            git commit -m "Update deployment manifest with new image tag ${{ github.run_id }} [skip ci]"
-            git push origin HEAD:${{ github.ref_name }}
+            if git diff --cached --quiet; then
+              echo "Manifest already uses image tag ${{ github.run_id }}"
+            else
+              git commit -m "Update deployment manifest with new image tag ${{ github.run_id }} [skip ci]"
+              git push origin HEAD:${{ github.ref_name }}
+            fi
 
     deploy-argocd:
         runs-on: self-hosted

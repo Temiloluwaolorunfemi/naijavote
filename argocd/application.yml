@@ -10,8 +10,7 @@ spec:
     targetRevision: develop
     path: kubernetes
     directory:
-      recurse: false
-      include: naijavote-deployment.yml
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: default
