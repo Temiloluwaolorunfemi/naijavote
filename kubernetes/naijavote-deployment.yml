@@ -14,6 +14,8 @@ spec:
       labels:
         app: naijavote
     spec:
+      imagePullSecrets:
+        - name: docker-registry-secret
       containers:
         - name: naijavote
           image: temiloluwaolorunfemi/naijavote:latest
@@ -28,15 +30,13 @@ spec:
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: naijavote-config
+                  name: postgres-credentials
                   key: DB_USERNAME
-                  optional: true
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: naijavote-config
+                  name: postgres-credentials
                   key: DB_PASSWORD
-                  optional: true
             - name: SPRING_DATA_REDIS_HOST
               value: redis
             - name: SPRING_DATA_REDIS_PORT

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: naijavote
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Temiloluwaolorunfemi/naijavote.git
+    targetRevision: develop
+    path: kubernetes
+    directory:
+      recurse: false
+      include: naijavote-deployment.yml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
