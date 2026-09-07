@@ -5,7 +5,7 @@ metadata:
   labels:
     app: naijavote
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: naijavote
@@ -15,11 +15,11 @@ spec:
         app: naijavote
     spec:
       imagePullSecrets:
-        - name: docker-registry-secret
+    {{- toYaml .Values.imagePullSecrets | nindent 8 }}
       containers:
         - name: naijavote
-          image: temiloluwaolorunfemi/naijavote:33948270290
-          imagePullPolicy: Always
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 8080
@@ -30,12 +30,12 @@ spec:
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: naijavote-secrets
+                  name: {{ .Values.externalSecret.name }}
                   key: DB_USERNAME
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: naijavote-secrets
+                  name: {{ .Values.externalSecret.name }}
                   key: DB_PASSWORD
             - name: SPRING_DATA_REDIS_HOST
               value: redis
@@ -54,9 +54,4 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 20
           resources:
-            requests:
-              cpu: 100m
-              memory: 256Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
+{{- toYaml .Values.resources.app | nindent 12 }}

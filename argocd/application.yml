@@ -8,9 +8,9 @@ spec:
   source:
     repoURL: https://github.com/Temiloluwaolorunfemi/naijavote.git
     targetRevision: develop
-    path: kubernetes
-    directory:
-      recurse: true
+    path: helm/naijavote
+    helm:
+      releaseName: naijavote
   destination:
     server: https://kubernetes.default.svc
     namespace: default

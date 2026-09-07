@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: naijavote
+  labels:
+    app: naijavote
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: naijavote
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP

@@ -1,0 +1,53 @@
+replicaCount: 1
+
+image:
+  repository: temiloluwaolorunfemi/naijavote
+  tag: "33948270290"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: docker-registry-secret
+
+service:
+  type: ClusterIP
+  port: 8080
+
+postgres:
+  image: postgres:16-alpine
+  database: naijavote
+  username: naijavote_user
+  secretName: naijavote-secrets
+  storage: 5Gi
+
+redis:
+  enabled: true
+  image: redis:7-alpine
+
+externalSecret:
+  enabled: true
+  name: naijavote-secrets
+  storeName: vault-backend
+  vaultPath: naijavote
+
+resources:
+  app:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  postgres:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  redis:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi

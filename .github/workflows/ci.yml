@@ -68,16 +68,16 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v4
 
-        - name: Update Kubernetes manifest with new image tag
+        - name: Update Helm image tag
           run: |
             IMAGE_TAG=${{ github.run_id }}
-            sed -i -E "s|(image: temiloluwaolorunfemi/naijavote:)[^[:space:]]+|\1${IMAGE_TAG}|g" kubernetes/naijavote-deployment.yml
+            sed -i -E "s|^  tag:.*|  tag: \"${IMAGE_TAG}\"|" helm/naijavote/values.yaml
 
         - name: Commit and push updated manifest
           run: |
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git add kubernetes/naijavote-deployment.yml
+            git add helm/naijavote/values.yaml
             if git diff --cached --quiet; then
               echo "Manifest already uses image tag ${{ github.run_id }}"
             else
