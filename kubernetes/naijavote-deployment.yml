@@ -18,7 +18,7 @@ spec:
         - name: docker-registry-secret
       containers:
         - name: naijavote
-          image: temiloluwaolorunfemi/naijavote:33948270290
+          image: temiloluwaolorunfemi/naijavote:33948511353
           imagePullPolicy: Always
           ports:
             - name: http
