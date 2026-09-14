@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: temiloluwaolorunfemi/naijavote
-  tag: "34811848245"
+  tag: "34812267167"
   pullPolicy: Always
 
 imagePullSecrets:
