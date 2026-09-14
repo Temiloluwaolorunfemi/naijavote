@@ -39,10 +39,10 @@ jobs:
           with:
             url: ${{ secrets.VAULT_ADDR }}
             token: ${{ secrets.VAULT_TOKEN }}
-            cacertificate: ${{ secrets.VAULT_CA_CERT }}
+            caCertificate: ${{ secrets.VAULT_CA_CERT }}
             secrets: |
-              secret/data/docker#username | DOCKER_USERNAME
-              secret/data/docker#spassword | DOCKER_PASSWORD
+              secret/data/docker username | DOCKER_USERNAME
+              secret/data/docker password | DOCKER_PASSWORD
         
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v2
