@@ -34,11 +34,11 @@ jobs:
             with:
               fetch-depth: 0
 
-          - name: Set up Java 17
+          - name: Set up Java 21 for SonarQube
             uses: actions/setup-java@v4
             with:
               distribution: temurin
-              java-version: '17'
+              java-version: '21'
               cache: maven
 
           - name: Run SonarQube analysis and quality gate
