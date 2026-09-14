@@ -41,7 +41,7 @@ jobs:
             token: ${{ secrets.VAULT_TOKEN }}
             caCertificate: ${{ secrets.VAULT_CA_CERT }}
             secrets: |
-              secret/data/docker username | DOCKER_USERNAME
+              secret/data/docker username | DOCKER_USERNAME ;
               secret/data/docker password | DOCKER_PASSWORD
         
         - name: Set up Docker Buildx
